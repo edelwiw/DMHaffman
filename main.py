@@ -13,7 +13,7 @@ class Node(object):
     def __lt__(self, other):  # less than - для сортировкм нод
         return self.value < other.value
 
-    def __repr__(self): # represent - по большой части для дебага, в проде можно будет убрать. возвращает описание ноды
+    def __repr__(self): # represent - по большей части для дебага, возвращает описание ноды
         return "\"" + str(self.char) + "\"-" + str(self.value) + " (" + str(self.right) + " " + str(self.left) + ")"
 
 
