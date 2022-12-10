@@ -22,9 +22,8 @@ def create_dict(text):
     nodes = []
 
     def dfs(node, way):
-        if node.right:  # если есть ребенок справа
+        if node.right or node.left:  # если есть ребенок
             dfs(node.right, way + "1") # запускаем для правого, записываем путь
-        if node.left:
             dfs(node.left, way + "0")  # для левого
         else:
             dict[node.char] = way  # дошли до конца - записываем в словарь код символа (путь)
@@ -81,6 +80,7 @@ if __name__ == '__main__':
         print("Input text = " + text)
 
         dict = create_dict(text)  # создаем словарь с кодами
+        print(dict)
         ouf.write((str(len(dict)) + '\n').encode())  # пишем длину в фаил
 
         for el in dict:
