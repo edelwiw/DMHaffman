@@ -1,5 +1,6 @@
 from collections import Counter
 import sys
+import pickle
 
 
 class Node(object):
@@ -43,8 +44,6 @@ def create_dict(text):
     return dict
 
 
-
-
 def encode(text, dict):  # просто бежим по символам и записываем их код
     encoded = ""
     for el in text:
@@ -80,11 +79,12 @@ if __name__ == '__main__':
         print("Input text = " + text)
 
         dict = create_dict(text)  # создаем словарь с кодами
-        print(dict)
-        ouf.write((str(len(dict)) + '\n').encode())  # пишем длину в фаил
+        pickle.dump(len(dict), ouf)
 
         for el in dict:
-            ouf.write((el + ' ' + str(dict[el]) + '\n').encode())
+            pickle.dump(el, ouf)
+            pickle.dump(dict[el], ouf)
+
 
         encoded = encode(text, dict)
         print("Encoded text = " + encoded)
@@ -97,13 +97,13 @@ if __name__ == '__main__':
         inf = open(in_path, 'rb')
         ouf = open(out_path, 'w')
 
+        l = pickle.load(inf)
         dict = {}
 
-        l = int(inf.readline())
-
         for i in range(l):
-            line = inf.readline()
-            dict[chr(line[0])] = line[2:-1].decode()
+            char = pickle.load(inf)
+            code = pickle.load(inf)
+            dict[char] = code
 
         text = inf.readline().decode()
         decoded = decode(text, dict)
