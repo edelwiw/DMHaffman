@@ -85,10 +85,9 @@ if __name__ == '__main__':
             pickle.dump(el, ouf)
             pickle.dump(dict[el], ouf)
 
-
         encoded = encode(text, dict)
         print("Encoded text = " + encoded)
-        ouf.write(encoded.encode())
+        pickle.dump(encoded, ouf)
 
         inf.close()
         ouf.close()
@@ -105,7 +104,7 @@ if __name__ == '__main__':
             code = pickle.load(inf)
             dict[char] = code
 
-        text = inf.readline().decode()
+        text = pickle.load(inf)
         decoded = decode(text, dict)
         print("Decoded text = " + decoded)
         ouf.write(decoded)
