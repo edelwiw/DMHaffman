@@ -28,7 +28,7 @@ def create_dict(text):
             dfs(node.right, way + "1") # запускаем для правого, записываем путь
             dfs(node.left, way + "0")  # для левого
         else:
-            dict[node.char] = way  # дошли до конца - записываем в словарь код символа (путь)
+            dict[node.char] = way or '0'  # дошли до конца - записываем в словарь код символа (путь)
             return
 
     c = Counter(text)  # считаем количество символов
@@ -80,7 +80,7 @@ if __name__ == '__main__':
 
         ouf.write(len(dict).to_bytes(1, 'big'))  # write dict len to bin file as 1 byte
 
-        # print(dict)
+        #print(dict)
         # print("Dict len =", len(dict))
 
         max_el_code_len = max(len(str(el)) + 1 for el in dict.values())  # calculate max code size with MSB 1
@@ -106,7 +106,7 @@ if __name__ == '__main__':
         ouf = open(out_path, 'w')
 
         data = inf.read().hex()
-        # print('data=', data)
+        #print('data=', data)
 
         l = int(data[0:2], 16)
         # print('l=', l)
@@ -132,7 +132,7 @@ if __name__ == '__main__':
 
         text = bin(int(text, 16))[3:]
         # text = '0' * (8 - len(text) % 8) + text
-        # print(text)
+        #print(text)
 
         decoded = decode(text, dict)
         # print("Decoded text = " + decoded)
